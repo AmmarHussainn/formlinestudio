@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #ff0a0a;
+  --secondary: #1d1d1d;
+  --accent: #ff0a0a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-orbitron: var(--font-orbitron);
+  --font-mono: monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+}
+
+@keyframes glowMove {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+}
+
+.animate-glow-move::before {
+  content: "";
+  position: absolute;
+  left: var(--glow-x);
+  top: var(--glow-y);
+  width: var(--glow-size);
+  height: var(--glow-size);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    #df3b01 0%,
+    #de3800 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: var(--glow-intensity);
+  filter: blur(120px);
+  animation: glowMove 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.btn-cta {
+  background: linear-gradient(180deg, #651401 0%, #330701 74%) !important;
+  border: 1px solid transparent !important;
+  background-image: linear-gradient(180deg, #651401 0%, #330701 74%),
+    linear-gradient(180deg, #541001 0%, #761801 74%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  color: #e23e01 !important;
+  font-weight: 600 !important;
+}
+
+@keyframes ctaBorderShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes ctaGlowPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(226, 62, 1, 0.25), 0 0 30px rgba(226, 62, 1, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(226, 62, 1, 0.45), 0 0 45px rgba(226, 62, 1, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(226, 62, 1, 0.25), 0 0 30px rgba(226, 62, 1, 0.15);
+  }
+}
+
+.btn-cta {
+  position: relative;
+  background: linear-gradient(180deg, #651401 0%, #330701 74%);
+  border: 1px solid transparent;
+
+  background-image: linear-gradient(180deg, #651401 0%, #330701 74%),
+    linear-gradient(120deg, #541001, #ff4d00, #761801, #ff4d00, #541001);
+
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 300%;
+
+  color: #e23e01;
+  font-weight: 600;
+
+  animation: ctaBorderShift 6s linear infinite,
+    ctaGlowPulse 4s ease-in-out infinite;
+}
+.btn-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255, 90, 20, 0.2),
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: ctaBorderShift 5s linear infinite;
+  pointer-events: none;
+}
